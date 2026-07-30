@@ -575,3 +575,102 @@ header{
 }
 
 }
+/* ==========================
+POMODORO
+========================== */
+
+.pomodoro{
+
+    margin-top:35px;
+
+}
+
+.pomodoroCard{
+
+    background:var(--card);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+#timer{
+
+    font-size:64px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+#pomodoroStatus{
+
+    color:var(--text-light);
+
+}
+
+.pomodoroButtons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.pomodoroButtons button{
+
+    border:none;
+
+    padding:14px 22px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+#startPomodoro{
+
+    background:#32C36C;
+
+}
+
+#pausePomodoro{
+
+    background:#FFB020;
+
+}
+
+#resetPomodoro{
+
+    background:#FF5B5B;
+
+}
+
+.pomodoroButtons button:hover{
+
+    transform:translateY(-3px);
+
+}
