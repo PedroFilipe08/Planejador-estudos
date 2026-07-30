@@ -1,38 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Study Planner</title>
 
-    <!-- Fonte -->
-
-    <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Ícones -->
-
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -54,49 +37,35 @@
         <nav>
 
             <button class="menu active">
-
                 <i class="fa-solid fa-chart-simple"></i>
-
                 Dashboard
-
             </button>
 
             <button class="menu">
-
                 <i class="fa-solid fa-book"></i>
-
                 Matérias
-
             </button>
 
             <button class="menu">
-
-                <i class="fa-solid fa-clock"></i>
-
-                Pomodoro
-
-            </button>
-
-            <button class="menu">
-
                 <i class="fa-solid fa-gear"></i>
-
                 Configurações
-
             </button>
 
         </nav>
 
     </aside>
 
+    <!-- Conteúdo -->
+
     <main>
+
+        <!-- Topo -->
 
         <header>
 
             <div>
 
                 <h1>Olá 👋</h1>
-
                 <p>Acompanhe suas horas de estudo.</p>
 
             </div>
@@ -139,58 +108,6 @@
 
         </section>
 
-        <!-- Pomodoro -->
-
-        <section class="pomodoro">
-
-            <div class="pomodoroCard">
-
-                <h2>🍅 Pomodoro</h2>
-
-                <p id="pomodoroStatus">
-
-                    Sessão de foco
-
-                </p>
-
-                <div id="timer">
-
-                    25:00
-
-                </div>
-
-                <div class="pomodoroButtons">
-
-                    <button id="startPomodoro">
-
-                        <i class="fa-solid fa-play"></i>
-
-                        Iniciar
-
-                    </button>
-
-                    <button id="pausePomodoro">
-
-                        <i class="fa-solid fa-pause"></i>
-
-                        Pausar
-
-                    </button>
-
-                    <button id="resetPomodoro">
-
-                        <i class="fa-solid fa-rotate-left"></i>
-
-                        Reiniciar
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
         <!-- Barra -->
 
         <section class="progress">
@@ -198,7 +115,12 @@
             <div class="progressBar">
 
                 <div id="barra"></div>
-                        <!-- Cadastro -->
+
+            </div>
+
+        </section>
+
+        <!-- Cadastro -->
 
         <section class="novo">
 
@@ -207,14 +129,14 @@
             <div class="form">
 
                 <input
-                    id="materia"
-                    type="text"
-                    placeholder="Nome da matéria">
+                id="materia"
+                type="text"
+                placeholder="Nome da matéria">
 
                 <input
-                    id="horas"
-                    type="number"
-                    placeholder="Horas">
+                id="horas"
+                type="number"
+                placeholder="Horas">
 
                 <button id="adicionar">
 
@@ -251,9 +173,4 @@
 <script src="script.js"></script>
 
 </body>
-
 </html>
-
-            </div>
-
-        </section>
