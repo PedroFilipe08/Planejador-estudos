@@ -1,517 +1,176 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Study Planner</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Ícones -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<title>Study Planner</title>
-
-
-<!-- Estilos -->
-<link rel="stylesheet" href="style.css">
-
-
-<!-- Ícones -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
-<!-- Biblioteca de gráficos -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+<div class="container">
 
-<header>
+    <!-- Sidebar -->
 
+    <aside class="sidebar">
 
-<h1>
-<i class="fa-solid fa-graduation-cap"></i>
-Study Planner
-</h1>
+        <div class="logo">
 
+            <i class="fa-solid fa-book-open"></i>
 
-<nav>
+            <h2>Study Planner</h2>
 
-<a href="#inicio">Início</a>
+        </div>
 
-<a href="#tarefas">Tarefas</a>
+        <nav>
 
-<a href="#estudos">Estudos</a>
+            <button class="menu active">
+                <i class="fa-solid fa-chart-simple"></i>
+                Dashboard
+            </button>
 
-<a href="#calendario">Calendário</a>
+            <button class="menu">
+                <i class="fa-solid fa-book"></i>
+                Matérias
+            </button>
 
-<a href="#pomodoro">Pomodoro</a>
+            <button class="menu">
+                <i class="fa-solid fa-gear"></i>
+                Configurações
+            </button>
 
-<a href="#estatisticas">Estatísticas</a>
+        </nav>
 
-</nav>
+    </aside>
 
+    <!-- Conteúdo -->
 
-</header>
+    <main>
 
+        <!-- Topo -->
 
+        <header>
 
+            <div>
 
-<!-- =========================
-INÍCIO
-========================= -->
+                <h1>Olá 👋</h1>
+                <p>Acompanhe suas horas de estudo.</p>
 
+            </div>
 
-<section id="inicio" class="hero">
+            <button id="darkMode">
 
+                <i class="fa-solid fa-moon"></i>
 
-<h2>
-Organize seus estudos de forma inteligente
-</h2>
+            </button>
 
+        </header>
 
-<p>
+        <!-- Cards -->
 
-Planeje suas tarefas, controle seu tempo,
-acompanhe seu progresso e melhore sua rotina
-de estudos.
+        <section class="cards">
 
-</p>
+            <div class="card">
 
+                <span>Total estudado</span>
 
-<button onclick="rolarTarefas()">
+                <h2 id="totalHoras">0h</h2>
 
-Começar agora
+            </div>
 
-</button>
+            <div class="card">
 
+                <span>Meta semanal</span>
 
-</section>
+                <h2 id="metaHoras">25h</h2>
 
+            </div>
 
+            <div class="card">
 
+                <span>Progresso</span>
 
+                <h2 id="porcentagem">0%</h2>
 
-<!-- =========================
-TAREFAS
-========================= -->
+            </div>
 
+        </section>
 
-<section id="tarefas" class="card">
+        <!-- Barra -->
 
+        <section class="progress">
 
-<h2>
-<i class="fa-solid fa-list-check"></i>
-Lista de Tarefas
-</h2>
+            <div class="progressBar">
 
+                <div id="barra"></div>
 
+            </div>
 
-<div class="inputs">
+        </section>
 
+        <!-- Cadastro -->
 
-<input 
-id="tarefaInput"
-placeholder="Digite uma tarefa">
+        <section class="novo">
 
+            <h2>Adicionar matéria</h2>
 
-<select id="prioridade">
+            <div class="form">
 
+                <input
+                id="materia"
+                type="text"
+                placeholder="Nome da matéria">
 
-<option value="Alta">
-Alta
-</option>
+                <input
+                id="horas"
+                type="number"
+                placeholder="Horas">
 
+                <button id="adicionar">
 
-<option value="Média">
-Média
-</option>
+                    <i class="fa-solid fa-plus"></i>
 
+                    Adicionar
 
-<option value="Baixa">
-Baixa
-</option>
+                </button>
 
+            </div>
 
-</select>
+        </section>
 
+        <!-- Lista -->
 
+        <section>
 
-<button onclick="adicionarTarefa()">
+            <h2 class="tituloLista">
 
-Adicionar
+                Suas matérias
 
-</button>
+            </h2>
 
+            <div id="listaMaterias">
+
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
-
-
-
-<ul id="listaTarefas"></ul>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- =========================
-PLANEJAMENTO
-========================= -->
-
-
-<section id="estudos" class="card">
-
-
-<h2>
-
-<i class="fa-solid fa-book"></i>
-
-Planejamento de Estudos
-
-</h2>
-
-
-
-<div class="inputs">
-
-
-<input
-id="disciplina"
-placeholder="Disciplina">
-
-
-<input
-id="horas"
-type="number"
-placeholder="Horas">
-
-
-<button onclick="adicionarDisciplina()">
-
-Adicionar
-
-</button>
-
-
-</div>
-
-
-
-
-<table>
-
-
-<thead>
-
-<tr>
-
-<th>
-Disciplina
-</th>
-
-
-<th>
-Horas
-</th>
-
-
-</tr>
-
-</thead>
-
-
-
-<tbody id="cronograma">
-
-
-</tbody>
-
-
-
-</table>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- =========================
-CALENDÁRIO
-========================= -->
-
-
-<section id="calendario" class="card">
-
-
-<h2>
-
-<i class="fa-solid fa-calendar"></i>
-
-Calendário
-
-</h2>
-
-
-
-<div class="inputs">
-
-
-<input
-type="date"
-id="dataEvento">
-
-
-<input
-id="evento"
-placeholder="Prova, trabalho ou evento">
-
-
-<button onclick="adicionarEvento()">
-
-Adicionar
-
-</button>
-
-
-</div>
-
-
-
-<ul id="listaEventos"></ul>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- =========================
-POMODORO
-========================= -->
-
-
-<section id="pomodoro" class="card">
-
-
-<h2>
-
-<i class="fa-solid fa-clock"></i>
-
-Cronômetro Pomodoro
-
-</h2>
-
-
-
-<div id="timer">
-
-25:00
-
-</div>
-
-
-
-<div class="botoes">
-
-
-<button onclick="iniciarPomodoro()">
-
-Iniciar
-
-</button>
-
-
-
-<button onclick="pausarPomodoro()">
-
-Pausar
-
-</button>
-
-
-
-<button onclick="reiniciarPomodoro()">
-
-Reiniciar
-
-</button>
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- =========================
-ESTATÍSTICAS
-========================= -->
-
-
-<section id="estatisticas" class="card">
-
-
-<h2>
-
-<i class="fa-solid fa-chart-line"></i>
-
-Estatísticas
-
-</h2>
-
-
-
-<div class="stats">
-
-
-<div>
-
-<h3 id="totalConcluidas">
-0
-</h3>
-
-<p>
-Tarefas concluídas
-</p>
-
-</div>
-
-
-
-
-<div>
-
-<h3 id="horasEstudo">
-0
-</h3>
-
-<p>
-Horas estudadas
-</p>
-
-</div>
-
-
-
-
-
-<div>
-
-<h3 id="percentual">
-0%
-</h3>
-
-<p>
-Metas concluídas
-</p>
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<div class="graficos">
-
-
-<div>
-
-<h3>
-Progresso das tarefas
-</h3>
-
-
-<canvas id="graficoTarefas"></canvas>
-
-
-</div>
-
-
-
-
-
-<div>
-
-<h3>
-Horas por disciplina
-</h3>
-
-
-<canvas id="graficoHoras"></canvas>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<footer>
-
-
-<p>
-
-Study Planner - Projeto de organização de estudos
-
-</p>
-
-
-</footer>
-
-
-
-
 
 <script src="script.js"></script>
 
-
 </body>
-
 </html>
