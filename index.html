@@ -1,176 +1,93 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Cards -->
 
-    <title>Study Planner</title>
+<section class="cards">
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <div class="card">
 
-    <!-- Ícones -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        <span>Total estudado</span>
 
-    <link rel="stylesheet" href="style.css">
-</head>
+        <h2 id="totalHoras">0h</h2>
 
-<body>
+    </div>
 
-<div class="container">
+    <div class="card">
 
-    <!-- Sidebar -->
+        <span>Meta semanal</span>
 
-    <aside class="sidebar">
+        <h2 id="metaHoras">25h</h2>
 
-        <div class="logo">
+    </div>
 
-            <i class="fa-solid fa-book-open"></i>
+    <div class="card">
 
-            <h2>Study Planner</h2>
+        <span>Progresso</span>
+
+        <h2 id="porcentagem">0%</h2>
+
+    </div>
+
+</section>
+
+<!-- ==========================
+POMODORO
+========================== -->
+
+<section class="pomodoro">
+
+    <div class="pomodoroCard">
+
+        <h2>
+            🍅 Pomodoro
+        </h2>
+
+        <p id="pomodoroStatus">
+            Foco
+        </p>
+
+        <div id="timer">
+            25:00
+        </div>
+
+        <div class="pomodoroButtons">
+
+            <button id="startPomodoro">
+
+                <i class="fa-solid fa-play"></i>
+
+                Iniciar
+
+            </button>
+
+            <button id="pausePomodoro">
+
+                <i class="fa-solid fa-pause"></i>
+
+                Pausar
+
+            </button>
+
+            <button id="resetPomodoro">
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                Reiniciar
+
+            </button>
 
         </div>
 
-        <nav>
+    </div>
 
-            <button class="menu active">
-                <i class="fa-solid fa-chart-simple"></i>
-                Dashboard
-            </button>
+</section>
 
-            <button class="menu">
-                <i class="fa-solid fa-book"></i>
-                Matérias
-            </button>
+<!-- Barra -->
 
-            <button class="menu">
-                <i class="fa-solid fa-gear"></i>
-                Configurações
-            </button>
+<section class="progress">
 
-        </nav>
+    <div class="progressBar">
 
-    </aside>
+        <div id="barra"></div>
 
-    <!-- Conteúdo -->
+    </div>
 
-    <main>
-
-        <!-- Topo -->
-
-        <header>
-
-            <div>
-
-                <h1>Olá 👋</h1>
-                <p>Acompanhe suas horas de estudo.</p>
-
-            </div>
-
-            <button id="darkMode">
-
-                <i class="fa-solid fa-moon"></i>
-
-            </button>
-
-        </header>
-
-        <!-- Cards -->
-
-        <section class="cards">
-
-            <div class="card">
-
-                <span>Total estudado</span>
-
-                <h2 id="totalHoras">0h</h2>
-
-            </div>
-
-            <div class="card">
-
-                <span>Meta semanal</span>
-
-                <h2 id="metaHoras">25h</h2>
-
-            </div>
-
-            <div class="card">
-
-                <span>Progresso</span>
-
-                <h2 id="porcentagem">0%</h2>
-
-            </div>
-
-        </section>
-
-        <!-- Barra -->
-
-        <section class="progress">
-
-            <div class="progressBar">
-
-                <div id="barra"></div>
-
-            </div>
-
-        </section>
-
-        <!-- Cadastro -->
-
-        <section class="novo">
-
-            <h2>Adicionar matéria</h2>
-
-            <div class="form">
-
-                <input
-                id="materia"
-                type="text"
-                placeholder="Nome da matéria">
-
-                <input
-                id="horas"
-                type="number"
-                placeholder="Horas">
-
-                <button id="adicionar">
-
-                    <i class="fa-solid fa-plus"></i>
-
-                    Adicionar
-
-                </button>
-
-            </div>
-
-        </section>
-
-        <!-- Lista -->
-
-        <section>
-
-            <h2 class="tituloLista">
-
-                Suas matérias
-
-            </h2>
-
-            <div id="listaMaterias">
-
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+</section>
