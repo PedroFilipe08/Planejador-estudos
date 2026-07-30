@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Study Planner</title>
+
+
+<!-- Estilos -->
+<link rel="stylesheet" href="style.css">
+
+
+<!-- Ícones -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<!-- Biblioteca de gráficos -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+<h1>
+<i class="fa-solid fa-graduation-cap"></i>
+Study Planner
+</h1>
+
+
+<nav>
+
+<a href="#inicio">Início</a>
+
+<a href="#tarefas">Tarefas</a>
+
+<a href="#estudos">Estudos</a>
+
+<a href="#calendario">Calendário</a>
+
+<a href="#pomodoro">Pomodoro</a>
+
+<a href="#estatisticas">Estatísticas</a>
+
+</nav>
+
+
+</header>
+
+
+
+
+<!-- =========================
+INÍCIO
+========================= -->
+
+
+<section id="inicio" class="hero">
+
+
+<h2>
+Organize seus estudos de forma inteligente
+</h2>
+
+
+<p>
+
+Planeje suas tarefas, controle seu tempo,
+acompanhe seu progresso e melhore sua rotina
+de estudos.
+
+</p>
+
+
+<button onclick="rolarTarefas()">
+
+Começar agora
+
+</button>
+
+
+</section>
+
+
+
+
+
+<!-- =========================
+TAREFAS
+========================= -->
+
+
+<section id="tarefas" class="card">
+
+
+<h2>
+<i class="fa-solid fa-list-check"></i>
+Lista de Tarefas
+</h2>
+
+
+
+<div class="inputs">
+
+
+<input 
+id="tarefaInput"
+placeholder="Digite uma tarefa">
+
+
+<select id="prioridade">
+
+
+<option value="Alta">
+Alta
+</option>
+
+
+<option value="Média">
+Média
+</option>
+
+
+<option value="Baixa">
+Baixa
+</option>
+
+
+</select>
+
+
+
+<button onclick="adicionarTarefa()">
+
+Adicionar
+
+</button>
+
+
+</div>
+
+
+
+<ul id="listaTarefas"></ul>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- =========================
+PLANEJAMENTO
+========================= -->
+
+
+<section id="estudos" class="card">
+
+
+<h2>
+
+<i class="fa-solid fa-book"></i>
+
+Planejamento de Estudos
+
+</h2>
+
+
+
+<div class="inputs">
+
+
+<input
+id="disciplina"
+placeholder="Disciplina">
+
+
+<input
+id="horas"
+type="number"
+placeholder="Horas">
+
+
+<button onclick="adicionarDisciplina()">
+
+Adicionar
+
+</button>
+
+
+</div>
+
+
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Disciplina
+</th>
+
+
+<th>
+Horas
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="cronograma">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+CALENDÁRIO
+========================= -->
+
+
+<section id="calendario" class="card">
+
+
+<h2>
+
+<i class="fa-solid fa-calendar"></i>
+
+Calendário
+
+</h2>
+
+
+
+<div class="inputs">
+
+
+<input
+type="date"
+id="dataEvento">
+
+
+<input
+id="evento"
+placeholder="Prova, trabalho ou evento">
+
+
+<button onclick="adicionarEvento()">
+
+Adicionar
+
+</button>
+
+
+</div>
+
+
+
+<ul id="listaEventos"></ul>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+POMODORO
+========================= -->
+
+
+<section id="pomodoro" class="card">
+
+
+<h2>
+
+<i class="fa-solid fa-clock"></i>
+
+Cronômetro Pomodoro
+
+</h2>
+
+
+
+<div id="timer">
+
+25:00
+
+</div>
+
+
+
+<div class="botoes">
+
+
+<button onclick="iniciarPomodoro()">
+
+Iniciar
+
+</button>
+
+
+
+<button onclick="pausarPomodoro()">
+
+Pausar
+
+</button>
+
+
+
+<button onclick="reiniciarPomodoro()">
+
+Reiniciar
+
+</button>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+ESTATÍSTICAS
+========================= -->
+
+
+<section id="estatisticas" class="card">
+
+
+<h2>
+
+<i class="fa-solid fa-chart-line"></i>
+
+Estatísticas
+
+</h2>
+
+
+
+<div class="stats">
+
+
+<div>
+
+<h3 id="totalConcluidas">
+0
+</h3>
+
+<p>
+Tarefas concluídas
+</p>
+
+</div>
+
+
+
+
+<div>
+
+<h3 id="horasEstudo">
+0
+</h3>
+
+<p>
+Horas estudadas
+</p>
+
+</div>
+
+
+
+
+
+<div>
+
+<h3 id="percentual">
+0%
+</h3>
+
+<p>
+Metas concluídas
+</p>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="graficos">
+
+
+<div>
+
+<h3>
+Progresso das tarefas
+</h3>
+
+
+<canvas id="graficoTarefas"></canvas>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<h3>
+Horas por disciplina
+</h3>
+
+
+<canvas id="graficoHoras"></canvas>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<footer>
+
+
+<p>
+
+Study Planner - Projeto de organização de estudos
+
+</p>
+
+
+</footer>
+
+
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
