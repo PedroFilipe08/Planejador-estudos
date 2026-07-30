@@ -1,93 +1,204 @@
-<!-- Cards -->
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-<section class="cards">
+<head>
 
-    <div class="card">
+    <meta charset="UTF-8">
 
-        <span>Total estudado</span>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-        <h2 id="totalHoras">0h</h2>
+    <title>Study Planner</title>
 
-    </div>
+    <!-- Fonte -->
 
-    <div class="card">
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-        <span>Meta semanal</span>
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-        <h2 id="metaHoras">25h</h2>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-    </div>
+    <!-- Ícones -->
 
-    <div class="card">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-        <span>Progresso</span>
+    <link
+        rel="stylesheet"
+        href="style.css">
 
-        <h2 id="porcentagem">0%</h2>
+</head>
 
-    </div>
+<body>
 
-</section>
+<div class="container">
 
-<!-- ==========================
-POMODORO
-========================== -->
+    <!-- Sidebar -->
 
-<section class="pomodoro">
+    <aside class="sidebar">
 
-    <div class="pomodoroCard">
+        <div class="logo">
 
-        <h2>
-            🍅 Pomodoro
-        </h2>
+            <i class="fa-solid fa-book-open"></i>
 
-        <p id="pomodoroStatus">
-            Foco
-        </p>
-
-        <div id="timer">
-            25:00
-        </div>
-
-        <div class="pomodoroButtons">
-
-            <button id="startPomodoro">
-
-                <i class="fa-solid fa-play"></i>
-
-                Iniciar
-
-            </button>
-
-            <button id="pausePomodoro">
-
-                <i class="fa-solid fa-pause"></i>
-
-                Pausar
-
-            </button>
-
-            <button id="resetPomodoro">
-
-                <i class="fa-solid fa-rotate-left"></i>
-
-                Reiniciar
-
-            </button>
+            <h2>Study Planner</h2>
 
         </div>
 
-    </div>
+        <nav>
 
-</section>
+            <button class="menu active">
 
-<!-- Barra -->
+                <i class="fa-solid fa-chart-simple"></i>
 
-<section class="progress">
+                Dashboard
 
-    <div class="progressBar">
+            </button>
 
-        <div id="barra"></div>
+            <button class="menu">
 
-    </div>
+                <i class="fa-solid fa-book"></i>
 
-</section>
+                Matérias
+
+            </button>
+
+            <button class="menu">
+
+                <i class="fa-solid fa-clock"></i>
+
+                Pomodoro
+
+            </button>
+
+            <button class="menu">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Configurações
+
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <main>
+
+        <header>
+
+            <div>
+
+                <h1>Olá 👋</h1>
+
+                <p>Acompanhe suas horas de estudo.</p>
+
+            </div>
+
+            <button id="darkMode">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+        </header>
+
+        <!-- Cards -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <span>Total estudado</span>
+
+                <h2 id="totalHoras">0h</h2>
+
+            </div>
+
+            <div class="card">
+
+                <span>Meta semanal</span>
+
+                <h2 id="metaHoras">25h</h2>
+
+            </div>
+
+            <div class="card">
+
+                <span>Progresso</span>
+
+                <h2 id="porcentagem">0%</h2>
+
+            </div>
+
+        </section>
+
+        <!-- Pomodoro -->
+
+        <section class="pomodoro">
+
+            <div class="pomodoroCard">
+
+                <h2>🍅 Pomodoro</h2>
+
+                <p id="pomodoroStatus">
+
+                    Sessão de foco
+
+                </p>
+
+                <div id="timer">
+
+                    25:00
+
+                </div>
+
+                <div class="pomodoroButtons">
+
+                    <button id="startPomodoro">
+
+                        <i class="fa-solid fa-play"></i>
+
+                        Iniciar
+
+                    </button>
+
+                    <button id="pausePomodoro">
+
+                        <i class="fa-solid fa-pause"></i>
+
+                        Pausar
+
+                    </button>
+
+                    <button id="resetPomodoro">
+
+                        <i class="fa-solid fa-rotate-left"></i>
+
+                        Reiniciar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Barra -->
+
+        <section class="progress">
+
+            <div class="progressBar">
+
+                <div id="barra"></div>
+
+            </div>
+
+        </section>
