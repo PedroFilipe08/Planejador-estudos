@@ -1,302 +1,146 @@
-// ==========================
-// CONFIGURAÇÕES
-// ==========================
-
 const META_SEMANAL = 25;
+const TEMPO_POMODORO = 25 * 60;
+const CORES = ["#4F7CFF", "#32C36C", "#FFB020", "#9B5DE5", "#F15BB5", "#00C2A8", "#FF6B6B", "#3A86FF"];
+const $ = id => document.getElementById(id);
 
 let materias = JSON.parse(localStorage.getItem("studyPlanner")) || [];
+let segundos = TEMPO_POMODORO;
+let intervalo = null;
 
-// ==========================
-// ELEMENTOS
-// ==========================
-
-const lista = document.getElementById("listaMaterias");
-const totalHoras = document.getElementById("totalHoras");
-const porcentagem = document.getElementById("porcentagem");
-const barra = document.getElementById("barra");
-
-const inputMateria = document.getElementById("materia");
-const inputHoras = document.getElementById("horas");
-
-const btnAdicionar = document.getElementById("adicionar");
-const btnDark = document.getElementById("darkMode");
-
-// ==========================
-// CORES
-// ==========================
-
-const cores = [
-    "#4F7CFF",
-    "#32C36C",
-    "#FFB020",
-    "#9B5DE5",
-    "#F15BB5",
-    "#00C2A8",
-    "#FF6B6B",
-    "#3A86FF"
-];
-
-// ==========================
-// SALVAR
-// ==========================
+const lista = $("listaMaterias");
+const inputMateria = $("materia");
+const inputHoras = $("horas");
+const timer = $("timer");
+const statusPomodoro = $("pomodoroStatus");
+const botaoIniciar = $("startPomodoro");
 
 function salvar() {
-
-    localStorage.setItem(
-        "studyPlanner",
-        JSON.stringify(materias)
-    );
-
+    localStorage.setItem("studyPlanner", JSON.stringify(materias));
 }
 
-// ==========================
-// TOTAL
-// ==========================
+function atualizarResumo() {
+    const total = materias.reduce((soma, materia) => soma + Number(materia.horas), 0);
+    const progresso = Math.min(total / META_SEMANAL * 100, 100);
 
-function atualizarResumo(){
-
-    let total = 0;
-
-    materias.forEach(m =>{
-
-        total += Number(m.horas);
-
-    });
-
-    totalHoras.textContent = total + "h";
-
-    let progresso = (total / META_SEMANAL) * 100;
-
-    if(progresso > 100)
-        progresso = 100;
-
-    porcentagem.textContent = progresso.toFixed(0) + "%";
-
-    barra.style.width = progresso + "%";
-
+    $("totalHoras").textContent = `${total}h`;
+    $("porcentagem").textContent = `${progresso.toFixed(0)}%`;
+    $("barra").style.width = `${progresso}%`;
 }
 
-// ==========================
-// RENDER
-// ==========================
-
-function render(){
-
-    lista.innerHTML = "";
-
-    materias.forEach((materia,index)=>{
-
-        lista.innerHTML += `
-
-<div class="materia">
-
-<div class="info">
-
-<div
-class="bolinha"
-style="background:${materia.cor}">
-</div>
-
-<div>
-
-<div class="nome">
-${materia.nome}
-</div>
-
-<div class="horas">
-${materia.horas} horas
-</div>
-
-</div>
-
-</div>
-
-<div class="acoes">
-
-<button
-class="editar"
-onclick="editar(${index})">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="excluir"
-onclick="remover(${index})">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-    });
+function renderizarMaterias() {
+    lista.innerHTML = materias.map((materia, indice) => `
+        <div class="materia ${materia.concluida ? "concluida" : ""}">
+            <div class="info">
+                <div class="bolinha" style="background:${materia.cor}"></div>
+                <div>
+                    <div class="nome">${materia.nome}</div>
+                    <div class="horas">${materia.horas} horas</div>
+                </div>
+            </div>
+            <div class="acoes">
+                <button class="concluir" data-acao="concluir" data-indice="${indice}" title="${materia.concluida ? "Marcar como pendente" : "Marcar como concluída"}">
+                    <i class="fa-solid ${materia.concluida ? "fa-rotate-left" : "fa-check"}"></i>
+                </button>
+                <button class="editar" data-acao="editar" data-indice="${indice}" title="Editar matéria"><i class="fa-solid fa-pen"></i></button>
+                <button class="excluir" data-acao="excluir" data-indice="${indice}" title="Excluir matéria"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>`).join("");
 
     atualizarResumo();
-
     salvar();
-
 }
 
-// ==========================
-// ADICIONAR
-// ==========================
-
-btnAdicionar.onclick = ()=>{
-
+function adicionarMateria() {
     const nome = inputMateria.value.trim();
-
     const horas = Number(inputHoras.value);
 
-    if(nome == ""){
-
-        alert("Digite uma matéria.");
-
+    if (!nome || horas <= 0) {
+        alert(!nome ? "Digite uma matéria." : "Digite as horas estudadas.");
         return;
-
     }
 
-    if(horas <= 0){
+    materias.push({ nome, horas, cor: CORES[Math.floor(Math.random() * CORES.length)], concluida: false });
+    inputMateria.value = inputHoras.value = "";
+    renderizarMaterias();
+}
 
-        alert("Digite as horas estudadas.");
+lista.addEventListener("click", evento => {
+    const botao = evento.target.closest("button[data-acao]");
+    if (!botao) return;
 
-        return;
+    const indice = Number(botao.dataset.indice);
+    const acao = botao.dataset.acao;
 
+    if (acao === "concluir") materias[indice].concluida = !materias[indice].concluida;
+    if (acao === "excluir" && confirm("Deseja excluir esta matéria?")) materias.splice(indice, 1);
+
+    if (acao === "editar") {
+        const nome = prompt("Nome da matéria:", materias[indice].nome);
+        const horas = prompt("Horas estudadas:", materias[indice].horas);
+        if (nome === null || horas === null) return;
+        if (!nome.trim() || Number(horas) <= 0) return alert("Informe nome e horas válidos.");
+        materias[indice] = { ...materias[indice], nome: nome.trim(), horas: Number(horas) };
     }
 
-    materias.push({
+    renderizarMaterias();
+});
 
-        nome,
+$("adicionar").addEventListener("click", adicionarMateria);
+[inputMateria, inputHoras].forEach(input => input.addEventListener("keydown", evento => {
+    if (evento.key === "Enter") adicionarMateria();
+}));
 
-        horas,
-
-        cor: cores[Math.floor(Math.random()*cores.length)]
-
-    });
-
-    inputMateria.value="";
-
-    inputHoras.value="";
-
-    render();
-
+function exibirTempo() {
+    const minutos = Math.floor(segundos / 60);
+    timer.textContent = `${String(minutos).padStart(2, "0")}:${String(segundos % 60).padStart(2, "0")}`;
 }
 
-// ==========================
-// REMOVER
-// ==========================
-
-function remover(index){
-
-    if(confirm("Deseja excluir esta matéria?")){
-
-        materias.splice(index,1);
-
-        render();
-
-    }
-
+function pausarPomodoro() {
+    clearInterval(intervalo);
+    intervalo = null;
+    if (segundos > 0 && segundos < TEMPO_POMODORO) statusPomodoro.textContent = "Pausado";
 }
 
-// ==========================
-// EDITAR
-// ==========================
+function iniciarPomodoro() {
+    if (intervalo || segundos <= 0) return;
+    statusPomodoro.textContent = "Sessão de foco em andamento";
 
-function editar(index){
-
-    let novoNome = prompt(
-        "Nome da matéria:",
-        materias[index].nome
-    );
-
-    if(novoNome===null)
-        return;
-
-    let novasHoras = prompt(
-        "Horas estudadas:",
-        materias[index].horas
-    );
-
-    if(novasHoras===null)
-        return;
-
-    materias[index].nome = novoNome;
-
-    materias[index].horas = Number(novasHoras);
-
-    render();
-
+    intervalo = setInterval(() => {
+        segundos--;
+        exibirTempo();
+        if (!segundos) {
+            pausarPomodoro();
+            statusPomodoro.textContent = "Sessão concluída! Bom trabalho.";
+            botaoIniciar.disabled = true;
+        }
+    }, 1000);
 }
 
-// ==========================
-// TEMA
-// ==========================
-
-if(localStorage.getItem("tema")=="escuro"){
-
-    document.body.classList.add("dark");
-
-    btnDark.innerHTML='<i class="fa-solid fa-sun"></i>';
-
+function reiniciarPomodoro() {
+    pausarPomodoro();
+    segundos = TEMPO_POMODORO;
+    statusPomodoro.textContent = "Sessão de foco";
+    botaoIniciar.disabled = false;
+    exibirTempo();
 }
 
-btnDark.onclick=()=>{
+botaoIniciar.addEventListener("click", iniciarPomodoro);
+$("pausePomodoro").addEventListener("click", pausarPomodoro);
+$("resetPomodoro").addEventListener("click", reiniciarPomodoro);
 
+const botaoTema = $("darkMode");
+function atualizarTema() {
+    const escuro = document.body.classList.contains("dark");
+    localStorage.setItem("tema", escuro ? "escuro" : "claro");
+    botaoTema.innerHTML = `<i class="fa-solid fa-${escuro ? "sun" : "moon"}"></i>`;
+}
+
+if (localStorage.getItem("tema") === "escuro") document.body.classList.add("dark");
+botaoTema.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-
-    if(document.body.classList.contains("dark")){
-
-        localStorage.setItem("tema","escuro");
-
-        btnDark.innerHTML='<i class="fa-solid fa-sun"></i>';
-
-    }else{
-
-        localStorage.setItem("tema","claro");
-
-        btnDark.innerHTML='<i class="fa-solid fa-moon"></i>';
-
-    }
-
-}
-
-// ==========================
-// ENTER
-// ==========================
-
-inputHoras.addEventListener("keypress",(e)=>{
-
-    if(e.key==="Enter"){
-
-        btnAdicionar.click();
-
-    }
-
+    atualizarTema();
 });
 
-inputMateria.addEventListener("keypress",(e)=>{
-
-    if(e.key==="Enter"){
-
-        btnAdicionar.click();
-
-    }
-
-});
-
-// ==========================
-// INICIAR
-// ==========================
-
-render();
-
-render();
-
-
-
-// COLAR O POMODORO AQUI
+renderizarMaterias();
+exibirTempo();
+atualizarTema();

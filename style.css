@@ -516,6 +516,12 @@ LISTA
 
 }
 
+.concluir{
+
+    background:var(--primary);
+
+}
+
 .excluir{
 
     background:#FF5B5B;
@@ -525,6 +531,19 @@ LISTA
 .acoes button:hover{
 
     transform:scale(1.08);
+
+}
+
+.materia.concluida{
+
+    opacity:.7;
+
+}
+
+.materia.concluida .nome,
+.materia.concluida .horas{
+
+    text-decoration:line-through;
 
 }
 
@@ -654,6 +673,13 @@ POMODORO
 #startPomodoro{
 
     background:#32C36C;
+
+}
+
+#startPomodoro:disabled{
+
+    cursor:not-allowed;
+    opacity:.6;
 
 }
 
